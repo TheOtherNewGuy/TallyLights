@@ -1,6 +1,9 @@
+import time
 import board
 import busio
 import digitalio
+import python_osc
+
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -30,6 +33,9 @@ draw.rectangle((0, 0) oled.width, oled.height), outline=255, fill=255)
 
 font = ImageFont.truetype('PixelOperator.tff', 16)
 
+
+
+
 while true:
 
     # draws a black background to clear the image
@@ -37,6 +43,15 @@ while true:
 
     cmd = "hostname -I | cut -d\' \' -f1"
     IP = subprocess.check_output(cmd, shell = True )
+    device_name = "Camera 1"
+    device_status = ()
+
 
     draw.text((0, 0), "IP: " + str(IP,'utf-8'), font=font, fill=255)
-    draw.text((0, 16), "Camera 1", font=font, fill=255)
+    draw.text((0, 16), device_name, font=font, fill=255)
+    draw.text((0, 32), device_status, font=font, fill=255)
+
+    oled.image(image)
+    oled.show()
+    time.sleep(.1)
+
